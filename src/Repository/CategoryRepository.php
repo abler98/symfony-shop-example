@@ -22,4 +22,13 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
+
+    /**
+     * @param string $slug
+     * @return Category|null
+     */
+    public function findBySlug(string $slug): ?Category
+    {
+        return $this->findOneBy(['slug' => $slug]);
+    }
 }

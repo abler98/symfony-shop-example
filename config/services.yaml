@@ -49,5 +49,5 @@ services:
         class: App\Admin\ImageAdmin
         arguments: [~, App\Entity\Image, ~, '%storage.path%']
         tags:
-        - { name: sonata.admin, manager_type: orm, label: Image }
+            - { name: sonata.admin, manager_type: orm, label: Image }
         public: true
