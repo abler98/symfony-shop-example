@@ -7,6 +7,8 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\CoreBundle\Validator\ErrorElement;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -53,6 +55,23 @@ class ImageAdmin extends AbstractAdmin
     }
 
     /**
+     * @param ErrorElement $errorElement
+     * @param Image $object
+     */
+    public function validate(ErrorElement $errorElement, $object)
+    {
+        $errorElement
+            ->with('title')
+                ->assertLength(['max' => 255])
+            ->end()
+            ->with('file')
+                ->assertRequired()
+                ->assertImage(['maxSize' => 1024 * 1024 * 5])
+            ->end()
+        ;
+    }
+
+    /**
      * @param DatagridMapper $filter
      * @return void
      */
@@ -73,12 +92,31 @@ class ImageAdmin extends AbstractAdmin
         $list
             ->addIdentifier('title')
             ->add('filename')
+            ->add('created_at', 'datetime', [
+                'timezone' => 'Europe/Kiev',
+                'sortable' => true,
+            ])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],
                     'delete' => [],
                 ],
+            ])
+        ;
+    }
+
+    /**
+     * @param ShowMapper $show
+     * @return void
+     */
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('title')
+            ->add('webPath', null, [
+                'template' => 'admin/show_image.html.twig',
+                'label' => 'Preview',
             ])
         ;
     }
@@ -124,5 +162,18 @@ class ImageAdmin extends AbstractAdmin
         if ($this->filesystem->exists($pathname)) {
             $this->filesystem->remove($pathname);
         }
+    }
+
+    /**
+     * @param Image $object
+     * @return string
+     */
+    public function toString($object)
+    {
+        if (null !== $object->getTitle()) {
+            return $object->getTitle();
+        }
+
+        return parent::toString($object);
     }
 }

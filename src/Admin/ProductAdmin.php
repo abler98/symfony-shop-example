@@ -2,12 +2,14 @@
 
 namespace App\Admin;
 
+use App\Entity\Product;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\CoreBundle\Validator\ErrorElement;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -43,6 +45,27 @@ class ProductAdmin extends AbstractAdmin
     }
 
     /**
+     * @param ErrorElement $errorElement
+     * @param Product $object
+     */
+    public function validate(ErrorElement $errorElement, $object)
+    {
+        $errorElement
+            ->with('title')
+                ->assertRequired()
+                ->assertLength(['max' => 255])
+            ->end()
+            ->with('description')
+                ->assertLength(['max' => 1000])
+            ->end()
+            ->with('price')
+                ->assertRequired()
+                ->assertRange(['min' => 0, 'max' => 9999999])
+            ->end()
+        ;
+    }
+
+    /**
      * @param DatagridMapper $filter
      * @return void
      */
@@ -62,6 +85,9 @@ class ProductAdmin extends AbstractAdmin
         $list
             ->addIdentifier('id')
             ->add('title')
+            ->add('category', ModelType::class, [
+                'associated_property' => 'name',
+            ])
             ->add('created_at', 'date', [
                 'timezone' => 'Europe/Kiev',
                 'sortable' => true,
@@ -83,10 +109,22 @@ class ProductAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $show)
     {
         $show
-            ->with('General')
-                ->add('title')
-                ->add('description')
-                ->add('price', MoneyType::class)
-            ->end();
+            ->add('title')
+            ->add('description')
+            ->add('price', MoneyType::class)
+        ;
+    }
+
+    /**
+     * @param Product $object
+     * @return string
+     */
+    public function toString($object)
+    {
+        if (null !== $object->getTitle()) {
+            return $object->getTitle();
+        }
+
+        return parent::toString($object);
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Admin;
 
+use App\Entity\Category;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\CoreBundle\Validator\ErrorElement;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CategoryAdmin extends AbstractAdmin
@@ -22,6 +24,20 @@ class CategoryAdmin extends AbstractAdmin
     }
 
     /**
+     * @param ErrorElement $errorElement
+     * @param Category $object
+     */
+    public function validate(ErrorElement $errorElement, $object)
+    {
+        $errorElement
+            ->with('name')
+                ->assertRequired()
+                ->assertLength(['max' => 255])
+            ->end()
+        ;
+    }
+
+    /**
      * @param DatagridMapper $filter
      * @return void
      */
@@ -29,6 +45,7 @@ class CategoryAdmin extends AbstractAdmin
     {
         $filter
             ->add('name')
+            ->add('slug')
         ;
     }
 
@@ -41,6 +58,8 @@ class CategoryAdmin extends AbstractAdmin
         $list
             ->addIdentifier('id')
             ->add('name')
+            ->add('slug')
+            ->add('totalProducts')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -49,5 +68,18 @@ class CategoryAdmin extends AbstractAdmin
                 ],
             ])
         ;
+    }
+
+    /**
+     * @param Category $object
+     * @return string
+     */
+    public function toString($object)
+    {
+        if (null !== $object->getName()) {
+            return $object->getName();
+        }
+
+        return parent::toString($object);
     }
 }

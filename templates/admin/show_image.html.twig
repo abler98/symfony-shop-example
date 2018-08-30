@@ -1,0 +1,5 @@
+{% extends '@SonataAdmin/CRUD/base_show_field.html.twig' %}
+
+{% block field %}
+    <img src="{{ asset("storage/#{value}") }}" style="max-width: 90%; height: auto;"/>
+{% endblock %}

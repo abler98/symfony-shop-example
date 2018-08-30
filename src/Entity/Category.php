@@ -26,13 +26,13 @@ class Category
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Slug(fields={"name"}, updatable=false)
      */
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category", fetch="EAGER")
      */
     private $products;
 
@@ -96,6 +96,14 @@ class Category
     public function getProducts(): Collection
     {
         return $this->products;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalProducts(): int
+    {
+        return $this->products->count();
     }
 
     /**

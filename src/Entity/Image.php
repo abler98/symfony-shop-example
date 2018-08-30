@@ -107,4 +107,12 @@ class Image
     {
         return "{$path}/{$this->getFilename()}";
     }
+
+    /**
+     * @return string
+     */
+    public function getWebPath(): string
+    {
+        return $this->getFilename();
+    }
 }
