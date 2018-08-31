@@ -63,3 +63,19 @@ Run the server (using built-in server).
 ```sh
 $ php bin/console server:start *:8080
 ```
+
+### Usage
+
+- Go to the http://127.0.0.1:8080/admin/login
+- Login using username & password (login details below)
+- You will be redirected to the admin dashboard page
+- Add categories & products
+- Go to the main page and you will see a list of categories
+- Click at category list item and you will see a list of products
+
+### Predefined users
+
+Username | Password | Roles
+--- | --- | ---
+root | root | ROLE_ADMIN
+admin | admin | ROLE_ADMIN
