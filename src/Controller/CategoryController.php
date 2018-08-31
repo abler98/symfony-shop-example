@@ -47,6 +47,8 @@ class CategoryController extends Controller
             throw $this->createNotFoundException();
         }
 
-        return $this->render('category/show.html.twig', ['category' => $category]);
+        return $this->render('category/show.html.twig', [
+            'category' => $category, 'products' => $category->getProducts(),
+        ]);
     }
 }

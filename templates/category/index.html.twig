@@ -1,32 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Categories List{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>
-                    <a href="{{ path('category_show', {'slug': category.slug}) }}">show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <ul class="list-group">
+            {% for category in categories %}
+                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                   href="{{ path('category_show', {'slug': category.slug}) }}">
+                    {{ category.name }}
+                    <span class="badge badge-primary badge-pill">{{ category.totalProducts }}</span>
+                </a>
+            {% else %}
+                <li class="list-group-item disabled">Not records found</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

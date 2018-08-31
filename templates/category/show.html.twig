@@ -1,22 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category{% endblock %}
+{% block title %}{{ category.name }}{% endblock %}
 
 {% block body %}
-    <h1>Category</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ category.name }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('category_index') }}">back to list</a>
+    <div class="container">
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="media">
+                        {% if product.cover %}
+                            <img class="mr-3 product-cover" src="{{ asset('storage/' ~ product.cover.filename) }}"
+                                 alt="{{ product.cover.title }}">
+                        {% endif %}
+                        <div class="media-body">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ product.title }}</h5>
+                                <big class="text-primary">{{ product.price|number_format }} UAH</big>
+                            </div>
+                            <p class="mb-1">{{ product.description|default('Product without description') }}</p>
+                            <small>{{ product.createdAt|date }}</small>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+            <a class="list-group-item list-group-item-action list-group-item-light" href="{{ path('category_index') }}">
+                Back to categories list
+            </a>
+        </ul>
+    </div>
 {% endblock %}

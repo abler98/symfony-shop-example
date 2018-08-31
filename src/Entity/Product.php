@@ -45,7 +45,7 @@ class Product
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Image")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Image", fetch="EAGER")
      */
     private $images;
 
@@ -139,6 +139,18 @@ class Product
         $this->price = $price;
 
         return $this;
+    }
+
+    /**
+     * @return Image|null
+     */
+    public function getCover(): ?Image
+    {
+        if ($image = $this->images->first()) {
+            return $image;
+        } else {
+            return null;
+        }
     }
 
     /**
