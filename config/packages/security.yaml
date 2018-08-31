@@ -4,7 +4,7 @@ security:
             memory:
                 users:
                     root:
-                        password: $2y$13$rJbkVxfTs/dQ1pSzGCMQ1eyINcVlpry.kfGR7DCuYgngL2qPkotI
+                        password: $2y$13$mJLtvArzpxr/AeWhlPjSTeRqv8UIJuYpxO/3FH/n5DMAf8Bba8RKS
                         roles: 'ROLE_ADMIN'
                     admin:
                         password: $2y$13$DaMtG.IS6720tO8jvnhcy.4KpSdfOCpEkiSqWEIfa5IAf004cdydK
