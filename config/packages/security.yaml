@@ -16,6 +16,10 @@ security:
             security: false
         main:
             anonymous: ~
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
             form_login:
                 login_path: /admin/login
                 check_path: /admin/login

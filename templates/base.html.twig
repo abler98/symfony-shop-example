@@ -15,7 +15,9 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal">Symfony Shop</h5>
     <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="{{ url('sonata_admin_dashboard') }}">Admin</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="p-2 text-dark" href="{{ url('sonata_admin_dashboard') }}">Admin</a>
+        {% endif %}
         <a class="p-2 text-dark" href="{{ url('category_index') }}">Home</a>
     </nav>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}

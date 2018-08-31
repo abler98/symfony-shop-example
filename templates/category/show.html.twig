@@ -9,7 +9,7 @@
                 <li class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="media">
                         {% if product.cover %}
-                            <img class="mr-3 product-cover" src="{{ asset('storage/' ~ product.cover.filename) }}"
+                            <img class="mr-3 product-cover" src="{{ asset("storage/#{product.cover.filename}") }}"
                                  alt="{{ product.cover.title }}">
                         {% endif %}
                         <div class="media-body">
@@ -23,7 +23,7 @@
                     </div>
                 </li>
             {% endfor %}
-            <a class="list-group-item list-group-item-action list-group-item-light" href="{{ path('category_index') }}">
+            <a class="list-group-item list-group-item-action list-group-item-light" href="{{ url('category_index') }}">
                 Back to categories list
             </a>
         </ul>
