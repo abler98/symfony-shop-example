@@ -17,6 +17,11 @@ class Product
     use HasTimestampsTrait;
 
     /**
+     * Number of items per page
+     */
+    const PER_PAGE = 10;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")

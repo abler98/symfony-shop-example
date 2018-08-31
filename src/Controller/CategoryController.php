@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,12 +35,19 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/{slug}", name="category_show", methods="GET")
+     * @Route(
+     *     "/{slug}/{page}",
+     *     name="category_show",
+     *     methods="GET",
+     *     requirements={"page"="\d+"},
+     *     defaults={"page"=1}
+     * )
      *
      * @param string $slug
+     * @param int $page
      * @return Response
      */
-    public function show(string $slug): Response
+    public function show(string $slug, int $page): Response
     {
         $category = $this->categoryRepository->findBySlug($slug);
 
@@ -47,8 +55,13 @@ class CategoryController extends Controller
             throw $this->createNotFoundException();
         }
 
+        $pagination = $this->get('knp_paginator')->paginate(
+            $this->getDoctrine()->getManager()->getRepository(Product::class)->getQueryForCategory($category),
+            $page, Product::PER_PAGE
+        );
+
         return $this->render('category/show.html.twig', [
-            'category' => $category, 'products' => $category->getProducts(),
+            'category' => $category, 'products' => $pagination,
         ]);
     }
 }

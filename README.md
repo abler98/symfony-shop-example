@@ -2,8 +2,6 @@
 
 This project is a simple system for managing products list. 
 
----
-
 ### Tech
 
 The following libraries are used:
@@ -12,15 +10,11 @@ The following libraries are used:
 * [Sonata Admin](https://sonata-project.org/) - provides admin functional
 * [Bootstrap](https://getbootstrap.com/) - toolkit for developing with HTML, CSS, and JS
 
----
-
 ### Requipments
 
 - PHP 7.1.3+
 - MySQL 5.1+
 - Composer
-
----
 
 ### Installation
 
