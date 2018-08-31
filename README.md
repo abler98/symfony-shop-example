@@ -6,11 +6,12 @@ This project is a simple system for managing products list.
 
 The following libraries are used:
 
-* [Symfony](https://symfony.com/) - PHP Web Application framework
+* [Symfony Framework](https://symfony.com/) - PHP Web Application framework
 * [Sonata Admin](https://sonata-project.org/) - provides admin functional
 * [Bootstrap](https://getbootstrap.com/) - toolkit for developing with HTML, CSS, and JS
+* [Knp Paginator](https://github.com/KnpLabs/KnpPaginatorBundle) - Symfony paginator
 
-### Requipments
+### Requirements
 
 - PHP 7.1.3+
 - MySQL 5.1+
@@ -24,18 +25,18 @@ Clone the repository to working directory.
 $ git clone https://github.com/abler98/symfony-shop-example.git
 ```
 
-Configure enviropment file.
-
-- Copy .env example file
+Configure environment file.
 
 ```sh
 $ cd symfony-shop-example
 $ cp .env.dist .env
 ```
 
-- Edit .env file and change `DATABASE_URL`. Example for Homestead:
+Configuration example for Homestead.
 
 ```env
+APP_ENV=dev
+APP_SECRET=secret
 DATABASE_URL=mysql://homestead:secret@127.0.0.1:3306/symfony-shop
 ```
 
