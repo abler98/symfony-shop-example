@@ -33,6 +33,9 @@ class ProductRepository extends ServiceEntityRepository
     {
         $builder = $this->createQueryBuilder('p');
 
+        // Add images eager load
+        $builder->leftJoin('p.images', 'i')->addSelect('i');
+
         $builder->where($builder->expr()->eq('p.category', $category->getId()));
 
         return $builder;

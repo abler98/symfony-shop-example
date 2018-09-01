@@ -50,7 +50,7 @@ class Product
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Image", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Image")
      */
     private $images;
 
