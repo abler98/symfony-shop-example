@@ -62,6 +62,7 @@ class CategoryController extends Controller
 
         return $this->render('category/show.html.twig', [
             'category' => $category, 'products' => $pagination,
+            'currency' => $this->getParameter('currency'),
         ]);
     }
 }

@@ -17,6 +17,32 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class ProductAdmin extends AbstractAdmin
 {
     /**
+     * @var string
+     */
+    private $currency;
+
+    /**
+     * @var string
+     */
+    private $timezone;
+
+    /**
+     * ProductAdmin constructor.
+     * @param string $code
+     * @param string $class
+     * @param string $baseControllerName
+     * @param string $currency
+     * @param string $timezone
+     */
+    public function __construct(string $code, string $class, string $baseControllerName, string $currency, string $timezone)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+
+        $this->currency = $currency;
+        $this->timezone = $timezone;
+    }
+
+    /**
      * @param FormMapper $form
      * @return void
      */
@@ -32,7 +58,7 @@ class ProductAdmin extends AbstractAdmin
                     'required' => false,
                 ])
                 ->add('price', MoneyType::class, [
-                    'currency' => 'UAH',
+                    'currency' => $this->currency,
                 ])
             ->end()
             ->with('Upload Images')
@@ -89,7 +115,7 @@ class ProductAdmin extends AbstractAdmin
                 'associated_property' => 'name',
             ])
             ->add('created_at', 'date', [
-                'timezone' => 'Europe/Kiev',
+                'timezone' => $this->timezone,
                 'sortable' => true,
             ])
             ->add('_action', null, [

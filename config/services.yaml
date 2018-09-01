@@ -5,7 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    timezone: 'Europe/Kiev'
     storage.path: '../public/storage'
+    currency: 'UAH'
 
 services:
     # default configuration for services in *this* file
@@ -33,7 +35,7 @@ services:
 
     admin.product:
         class: App\Admin\ProductAdmin
-        arguments: [~, App\Entity\Product, ~]
+        arguments: [~, App\Entity\Product, ~, '%currency%', '%timezone%']
         tags:
             - { name: sonata.admin, manager_type: orm, label: Product }
         public: true

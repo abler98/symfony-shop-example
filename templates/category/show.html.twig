@@ -15,7 +15,7 @@
                         <div class="media-body">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ product.title }}</h5>
-                                <big class="text-primary">{{ product.price|number_format }} UAH</big>
+                                <big class="text-primary">{{ product.price|number_format }} {{ currency }}</big>
                             </div>
                             <p class="mb-1">{{ product.description|default('Product without description') }}</p>
                             <small>{{ product.createdAt|date }}</small>
