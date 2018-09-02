@@ -31,7 +31,9 @@ class CategoryController extends Controller
      */
     public function index(): Response
     {
-        return $this->render('category/index.html.twig', ['categories' => $this->categoryRepository->findAll()]);
+        return $this->render('category/index.html.twig', [
+            'categories' => $this->categoryRepository->findAllWithLastProducts(),
+        ]);
     }
 
     /**

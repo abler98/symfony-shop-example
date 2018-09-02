@@ -31,4 +31,17 @@ class CategoryRepository extends ServiceEntityRepository
     {
         return $this->findOneBy(['slug' => $slug]);
     }
+
+    /**
+     * @return Category[]
+     */
+    public function findAllWithLastProducts()
+    {
+        $builder = $this->createQueryBuilder('c');
+
+        $builder->leftJoin('c.products', 'p')->addSelect('p');
+        $builder->leftJoin('p.images', 'i')->addSelect('i');
+
+        return $builder->getQuery()->execute();
+    }
 }

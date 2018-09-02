@@ -7,6 +7,6 @@
         <p class="card-text">{{ product.description|truncate(200)|default('Product without description') }}</p>
     </div>
     <div class="card-footer">
-        <small class="text-muted">{{ product.createdAt|date }}</small>
+        <small class="text-muted">{{ product.updatedAt|date }}</small>
     </div>
 </div>
