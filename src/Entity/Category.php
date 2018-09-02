@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -96,6 +97,16 @@ class Category
     public function getProducts(): Collection
     {
         return $this->products;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getLastProducts(): Collection
+    {
+        return $this->products->matching(
+            ProductRepository::createNewestCriteria(3)
+        );
     }
 
     /**

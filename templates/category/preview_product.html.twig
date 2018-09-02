@@ -1,0 +1,12 @@
+<div class="card">
+    {% if product.cover %}
+        <img class="card-img-top px-3 pt-3 product-cover" src="{{ asset("storage/#{product.cover.filename}") }}" alt="{{ product.cover.title }}">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">{{ product.title }}</h5>
+        <p class="card-text">{{ product.description|truncate(200)|default('Product without description') }}</p>
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">{{ product.createdAt|date }}</small>
+    </div>
+</div>
